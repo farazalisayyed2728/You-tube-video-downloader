@@ -1,0 +1,41 @@
+"""
+YouTube Video Downloader using yt-dlp
+
+This script downloads the highest quality version of a YouTube video
+using the yt-dlp library and saves it with the video title as filename.
+"""
+
+import yt_dlp
+
+
+def download_video(video_url: str) -> None:
+    """
+    Download a YouTube video in the best available quality.
+
+    Args:
+        video_url (str): URL of the YouTube video
+    """
+
+    ydl_options = {
+        "format": "best",                 
+        "outtmpl": "%(title)s.%(ext)s",   
+        "noplaylist": True                
+    }
+
+    try:
+        with yt_dlp.YoutubeDL(ydl_options) as ydl:
+            ydl.download([video_url])
+        print("✅ Download completed successfully!")
+
+    except Exception as error:
+        print(f"❌ Error occurred: {error}")
+
+
+def main():
+    """Main function to run the downloader."""
+    video_url = "https://youtube.com/shorts/EE8YK6wTzFo?si=HxCqYoCjit9DshZX"
+    download_video(video_url)
+
+
+if __name__ == "__main__":
+    main()
